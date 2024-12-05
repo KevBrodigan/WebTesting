@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swrve SDK Example</title>
+    <script src="./SwrveSDK.js"></script>
+</head>
+<body>
+    <h1>Swrve SDK Example</h1>
+        <script>
+        // Create a shortcut to the inner SwrveSDK object
+        const Swrve = SwrveSDK.SwrveSDK;
+
+
+     Swrve.initWithConfig({
+              appId: 1030,
+              apiKey: "web_sdk-xtTPIygFc0kbEKxP73U", //apiKey: "web_sdk-z4O2WrkxykZTuZtSglXt",
+              externalUserId: "ciaran_testing_1",
+              stack: "us", 
+              autoPushSubscribe: true,
+              serviceWorker: './SwrveWorker.js'
+          });
+    </script>
+</body>
+</html>

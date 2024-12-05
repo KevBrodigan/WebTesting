@@ -1,0 +1,68 @@
+import { IAsset, IDictionary, ISwrveAsset } from "@swrve/web-core";
+import { IKeyMapping } from "@swrve/web-core";
+import { DevicePropertyName, IPlatform, IPlatformName, NetworkListener, NetworkMonitorHandle, NetworkStatus } from "@swrve/web-core";
+export declare function detectScreenDiagonal(modelName: string): number;
+export declare function calculatePPI(pixelWidth: number, pixelHeight: number, inchDiagonal: number): number;
+export default class WebPlatformBridge implements IPlatform {
+    /** True if the platform needs a proxy. */
+    protected needsProxy: boolean;
+    /** True if this platform supports the magic wand. */
+    protected supportsMagicWandNatively: boolean;
+    /** Number of history entries on start. */
+    protected startHistoryLength: number;
+    protected _firmware: string;
+    protected _deviceName: string;
+    protected _deviceID: string;
+    protected _model: string;
+    protected _os: string;
+    protected _osVersion: string;
+    protected _language: string;
+    protected _countryCode: string;
+    protected _screenDPI: number;
+    protected _screenHeight: number;
+    protected _screenWidth: number;
+    protected _timezone: string;
+    protected _region: string;
+    protected _deviceType: string;
+    protected _browserVersion: string;
+    protected _utcOffSetSeconds: number;
+    protected networkMonitorHandle?: NetworkMonitorHandle;
+    protected networkListeners: NetworkListener[];
+    constructor();
+    init(deviceProperties: readonly DevicePropertyName[]): Promise<void>;
+    name(): IPlatformName;
+    get deviceName(): string;
+    get synchronousStorage(): Storage;
+    get appStore(): string;
+    get firmware(): string;
+    get deviceID(): string;
+    get model(): string;
+    get os(): string;
+    get osVersion(): string;
+    get deviceType(): string;
+    get timezone(): string;
+    get region(): string;
+    get language(): string;
+    get countryCode(): string;
+    get screenDPI(): number;
+    get screenHeight(): number;
+    get screenWidth(): number;
+    getNeedsProxy(): boolean;
+    getSupportsMagicWandNatively(): boolean;
+    disableScreenSaver(): void;
+    enableScreenSaver(): void;
+    exit(toMenu?: boolean): void;
+    getDeviceBrowserVersion(): string;
+    getDeviceProperties(): IDictionary<string | number>;
+    supportsHDR(): boolean;
+    getKeymapping(): IKeyMapping;
+    downloadAssets(assets: readonly IAsset[]): Promise<void>;
+    checkStorageForAsset(asset: ISwrveAsset): boolean;
+    openLink(link: string): void;
+    monitorNetwork(networkListener: NetworkListener): NetworkListener;
+    stopMonitoringNetwork(networkListener: NetworkListener): void;
+    protected triggerNetworkChange(status: NetworkStatus): void;
+    protected initNetworkListener(): NetworkMonitorHandle;
+    protected removeNetworkListener(handle: NetworkMonitorHandle): void;
+    private findOrCreateDeviceId;
+}
